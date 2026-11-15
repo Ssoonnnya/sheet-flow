@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'credentials' => env('GOOGLE_SERVICE_ACCOUNT_JSON', storage_path('app/google/service-account.json')),
+    'credentials' => env('GOOGLE_SERVICE_ACCOUNT_JSON') ?: storage_path('app/google/service-account.json'),
 
     /*
     |--------------------------------------------------------------------------

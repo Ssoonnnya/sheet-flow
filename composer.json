@@ -10,6 +10,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "google/apiclient": "^2.18",
         "inertiajs/inertia-laravel": "^3.0",
         "laravel/chisel": "^0.1.0",
         "laravel/fortify": "^1.37.2",
@@ -74,6 +75,7 @@
             "@types:check",
             "@php artisan test"
         ],
+        "pre-autoload-dump": "Google\\Task\\Composer::cleanup",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
@@ -99,7 +101,10 @@
             "installer": {
                 "post-create-project": []
             }
-        }
+        },
+        "google/apiclient-services": [
+            "Sheets"
+        ]
     },
     "config": {
         "optimize-autoloader": true,
