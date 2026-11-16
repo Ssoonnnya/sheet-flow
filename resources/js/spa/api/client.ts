@@ -1,4 +1,8 @@
-import { ApiError, type ValidationErrors } from '@/spa/api/types';
+import {
+    ApiError,
+    type Paginated,
+    type ValidationErrors,
+} from '@/spa/api/types';
 
 type JsonBody = Record<string, unknown> | undefined;
 
@@ -47,11 +51,11 @@ function unwrapData<T>(payload: unknown): T {
     return payload as T;
 }
 
-export async function apiRequest<T>(
+async function apiRequestRaw(
     method: string,
     path: string,
     body?: JsonBody,
-): Promise<T> {
+): Promise<unknown> {
     const headers: Record<string, string> = {
         Accept: 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
@@ -116,11 +120,33 @@ export async function apiRequest<T>(
         throw new ApiError(message, response.status);
     }
 
-    return unwrapData<T>(payload);
+    return payload;
+}
+
+export async function apiRequest<T>(
+    method: string,
+    path: string,
+    body?: JsonBody,
+): Promise<T> {
+    return unwrapData<T>(await apiRequestRaw(method, path, body));
 }
 
 export const api = {
     get: <T>(path: string) => apiRequest<T>('GET', path),
+    getPage: async <T>(path: string): Promise<Paginated<T>> => {
+        const payload = await apiRequestRaw('GET', path);
+
+        if (
+            payload === null ||
+            typeof payload !== 'object' ||
+            !('data' in payload) ||
+            !Array.isArray((payload as { data: unknown }).data)
+        ) {
+            throw new ApiError('Unexpected paginated response.', 500);
+        }
+
+        return payload as Paginated<T>;
+    },
     post: <T>(path: string, body?: JsonBody) =>
         apiRequest<T>('POST', path, body),
     put: <T>(path: string, body?: JsonBody) => apiRequest<T>('PUT', path, body),

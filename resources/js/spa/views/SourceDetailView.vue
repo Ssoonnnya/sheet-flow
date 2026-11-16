@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
 import { api } from '@/spa/api/client';
 import {
     ApiError,
@@ -16,12 +16,20 @@ const props = defineProps<{
     id: string;
 }>();
 
+const router = useRouter();
+
 const source = ref<SheetSource | null>(null);
 const loading = ref(true);
 const error = ref<string | null>(null);
 const notice = ref<string | null>(null);
 const showAdvanced = ref(false);
 const syncing = ref(false);
+const editing = ref(false);
+const editName = ref('');
+const editActive = ref(true);
+const saving = ref(false);
+const deleting = ref(false);
+const editErrors = ref<Record<string, string[]>>({});
 
 const tabName = ref('');
 const mappingTable = ref('');
@@ -93,6 +101,73 @@ async function runSync(): Promise<void> {
         showError(err, 'Failed to queue sync.');
     } finally {
         syncing.value = false;
+    }
+}
+
+function startEdit(): void {
+    if (!source.value) {
+        return;
+    }
+
+    editing.value = true;
+    editName.value = source.value.name;
+    editActive.value = source.value.is_active;
+    editErrors.value = {};
+}
+
+function cancelEdit(): void {
+    editing.value = false;
+    editErrors.value = {};
+}
+
+async function saveEdit(): Promise<void> {
+    if (!source.value) {
+        return;
+    }
+
+    saving.value = true;
+    notice.value = null;
+    editErrors.value = {};
+
+    try {
+        source.value = await api.put<SheetSource>(`/sources/${props.id}`, {
+            name: editName.value,
+            is_active: editActive.value,
+        });
+        editing.value = false;
+        notice.value = 'Source updated.';
+    } catch (err) {
+        if (err instanceof ApiError) {
+            editErrors.value = err.errors;
+        }
+        showError(err, 'Failed to update source.');
+    } finally {
+        saving.value = false;
+    }
+}
+
+async function deleteSource(): Promise<void> {
+    if (!source.value) {
+        return;
+    }
+
+    if (
+        !window.confirm(
+            `Delete source “${source.value.name}”? This cannot be undone.`,
+        )
+    ) {
+        return;
+    }
+
+    deleting.value = true;
+    notice.value = null;
+
+    try {
+        await api.delete(`/sources/${props.id}`);
+        await router.push({ name: 'sources' });
+    } catch (err) {
+        showError(err, 'Failed to delete source.');
+        deleting.value = false;
     }
 }
 
@@ -207,26 +282,88 @@ onMounted(() => {
             <div
                 class="flex flex-wrap items-start justify-between gap-4"
             >
-                <div>
-                    <h1 class="text-2xl font-semibold tracking-tight">
-                        {{ source.name }}
-                    </h1>
-                    <p class="mt-1 font-mono text-sm text-slate-500">
-                        {{ source.spreadsheet_id }}
-                    </p>
-                    <p class="mt-2 text-sm text-slate-600">
-                        {{ tabCount }} tab(s), {{ mappingCount }} destination
-                        table(s). New sheet columns are added on sync.
-                    </p>
+                <div class="min-w-0 flex-1">
+                    <div v-if="editing" class="space-y-3">
+                        <label class="block space-y-1 text-sm">
+                            <span class="font-medium">Name</span>
+                            <input
+                                v-model="editName"
+                                required
+                                class="w-full max-w-md rounded-md border border-slate-300 px-3 py-2"
+                            />
+                            <span
+                                v-if="editErrors.name?.[0]"
+                                class="text-red-600"
+                            >{{ editErrors.name[0] }}</span>
+                        </label>
+                        <label class="flex items-center gap-2 text-sm">
+                            <input
+                                v-model="editActive"
+                                type="checkbox"
+                                class="rounded border-slate-300"
+                            />
+                            <span>Active</span>
+                        </label>
+                        <div class="flex flex-wrap gap-2">
+                            <button
+                                type="button"
+                                class="rounded-md bg-slate-900 px-3 py-1.5 text-sm text-white hover:bg-slate-800 disabled:opacity-60"
+                                :disabled="saving"
+                                @click="saveEdit"
+                            >
+                                {{ saving ? 'Saving…' : 'Save' }}
+                            </button>
+                            <button
+                                type="button"
+                                class="rounded-md border border-slate-300 px-3 py-1.5 text-sm hover:bg-slate-50"
+                                @click="cancelEdit"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <h1 class="text-2xl font-semibold tracking-tight">
+                            {{ source.name }}
+                        </h1>
+                        <p class="mt-1 font-mono text-sm text-slate-500">
+                            {{ source.spreadsheet_id }}
+                        </p>
+                        <p class="mt-2 text-sm text-slate-600">
+                            {{ tabCount }} tab(s), {{ mappingCount }} destination
+                            table(s). New sheet columns are added on sync.
+                        </p>
+                        <p class="mt-1 text-xs text-slate-500">
+                            {{ source.is_active ? 'Active' : 'Inactive' }}
+                        </p>
+                    </div>
                 </div>
-                <button
-                    type="button"
-                    class="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-60"
-                    :disabled="syncing"
-                    @click="runSync"
-                >
-                    {{ syncing ? 'Queuing…' : 'Run sync now' }}
-                </button>
+                <div class="flex flex-wrap gap-2">
+                    <button
+                        v-if="!editing"
+                        type="button"
+                        class="rounded-md border border-slate-300 px-3 py-2 text-sm hover:bg-slate-50"
+                        @click="startEdit"
+                    >
+                        Edit
+                    </button>
+                    <button
+                        type="button"
+                        class="rounded-md border border-red-200 px-3 py-2 text-sm text-red-700 hover:bg-red-50 disabled:opacity-60"
+                        :disabled="deleting"
+                        @click="deleteSource"
+                    >
+                        {{ deleting ? 'Deleting…' : 'Delete' }}
+                    </button>
+                    <button
+                        type="button"
+                        class="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-60"
+                        :disabled="syncing"
+                        @click="runSync"
+                    >
+                        {{ syncing ? 'Queuing…' : 'Run sync now' }}
+                    </button>
+                </div>
             </div>
 
             <p v-if="notice" class="text-sm text-slate-600">{{ notice }}</p>

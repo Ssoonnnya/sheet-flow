@@ -63,15 +63,26 @@ export type ImportRun = {
     created_at?: string | null;
 };
 
+export type PaginationMeta = {
+    current_page: number;
+    last_page: number;
+    per_page: number;
+    total: number;
+    from: number | null;
+    to: number | null;
+};
+
+export type PaginationLinks = {
+    first: string | null;
+    last: string | null;
+    prev: string | null;
+    next: string | null;
+};
+
 export type Paginated<T> = {
     data: T[];
-    meta?: {
-        current_page: number;
-        last_page: number;
-        per_page: number;
-        total: number;
-    };
-    links?: unknown;
+    meta: PaginationMeta;
+    links: PaginationLinks;
 };
 
 export type ValidationErrors = Record<string, string[]>;
@@ -96,3 +107,7 @@ export const COLUMN_TYPES = [
     'date',
     'datetime',
 ] as const;
+
+export const PAGE_SIZES = [15, 25, 50] as const;
+
+export type PageSize = (typeof PAGE_SIZES)[number];

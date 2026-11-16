@@ -1,24 +1,42 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 import { api } from '@/spa/api/client';
-import { ApiError, type ImportRun, type Paginated } from '@/spa/api/types';
+import {
+    ApiError,
+    type ImportRun,
+    type PageSize,
+    type PaginationMeta,
+} from '@/spa/api/types';
+import PaginationBar from '@/spa/components/PaginationBar.vue';
 import SpaLayout from '@/spa/layouts/SpaLayout.vue';
 
 const runs = ref<ImportRun[]>([]);
+const meta = ref<PaginationMeta>({
+    current_page: 1,
+    last_page: 1,
+    per_page: 15,
+    total: 0,
+    from: null,
+    to: null,
+});
+const page = ref(1);
+const perPage = ref<PageSize>(15);
 const loading = ref(true);
 const error = ref<string | null>(null);
 const syncing = ref(false);
 let pollTimer: ReturnType<typeof setInterval> | null = null;
 
-async function loadRuns(): Promise<void> {
-    try {
-        const payload = await api.get<ImportRun[] | Paginated<ImportRun>>(
-            '/import-runs',
-        );
+async function loadRuns(options: { silent?: boolean } = {}): Promise<void> {
+    if (!options.silent) {
+        loading.value = true;
+    }
 
-        runs.value = Array.isArray(payload)
-            ? payload
-            : ((payload as Paginated<ImportRun>).data ?? []);
+    try {
+        const payload = await api.getPage<ImportRun>(
+            `/import-runs?page=${page.value}&per_page=${perPage.value}`,
+        );
+        runs.value = payload.data;
+        meta.value = payload.meta;
         error.value = null;
     } catch (err) {
         error.value =
@@ -32,8 +50,9 @@ async function runSync(): Promise<void> {
     syncing.value = true;
 
     try {
-        const run = await api.post<ImportRun>('/sync');
-        runs.value = [run, ...runs.value];
+        await api.post<ImportRun>('/sync');
+        page.value = 1;
+        await loadRuns();
     } catch (err) {
         error.value =
             err instanceof ApiError ? err.message : 'Failed to queue sync.';
@@ -42,10 +61,21 @@ async function runSync(): Promise<void> {
     }
 }
 
+function onPageChange(nextPage: number): void {
+    page.value = nextPage;
+    void loadRuns();
+}
+
+function onPerPageChange(nextPerPage: PageSize): void {
+    perPage.value = nextPerPage;
+    page.value = 1;
+    void loadRuns();
+}
+
 onMounted(() => {
     void loadRuns();
     pollTimer = setInterval(() => {
-        void loadRuns();
+        void loadRuns({ silent: true });
     }, 5000);
 });
 
@@ -85,62 +115,70 @@ onUnmounted(() => {
         >
             No import runs yet.
         </div>
-        <ul v-else class="space-y-4">
-            <li
-                v-for="run in runs"
-                :key="run.id"
-                class="rounded-xl border border-slate-200 bg-white p-4"
-            >
-                <div class="flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                        <p class="font-medium">Run #{{ run.id }}</p>
-                        <p class="text-xs text-slate-500">
-                            {{ run.trigger }} · {{ run.created_at }}
-                        </p>
-                    </div>
-                    <span
-                        class="rounded-full px-2 py-0.5 text-xs capitalize"
-                        :class="{
-                            'bg-amber-50 text-amber-700':
-                                run.status === 'pending' ||
-                                run.status === 'running',
-                            'bg-emerald-50 text-emerald-700':
-                                run.status === 'completed',
-                            'bg-red-50 text-red-700': run.status === 'failed',
-                        }"
-                    >
-                        {{ run.status }}
-                    </span>
-                </div>
-                <p
-                    v-if="run.message"
-                    class="mt-2 text-sm text-slate-600"
+        <div v-else class="space-y-4">
+            <ul class="space-y-4">
+                <li
+                    v-for="run in runs"
+                    :key="run.id"
+                    class="rounded-xl border border-slate-200 bg-white p-4"
                 >
-                    {{ run.message }}
-                </p>
-                <ul
-                    v-if="run.entries && run.entries.length > 0"
-                    class="mt-3 space-y-1 text-sm text-slate-600"
-                >
-                    <li
-                        v-for="entry in run.entries"
-                        :key="entry.id"
-                    >
-                        <span class="font-mono text-xs">{{
-                            entry.destination_table
-                        }}</span>
-                        · read {{ entry.rows_read }}, wrote
-                        {{ entry.rows_written }}, skipped
-                        {{ entry.rows_skipped }}
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <div>
+                            <p class="font-medium">Run #{{ run.id }}</p>
+                            <p class="text-xs text-slate-500">
+                                {{ run.trigger }} · {{ run.created_at }}
+                            </p>
+                        </div>
                         <span
-                            v-if="entry.error"
-                            class="text-red-600"
+                            class="rounded-full px-2 py-0.5 text-xs capitalize"
+                            :class="{
+                                'bg-amber-50 text-amber-700':
+                                    run.status === 'pending' ||
+                                    run.status === 'running',
+                                'bg-emerald-50 text-emerald-700':
+                                    run.status === 'completed',
+                                'bg-red-50 text-red-700': run.status === 'failed',
+                            }"
                         >
-                            — {{ entry.error }}
+                            {{ run.status }}
                         </span>
-                    </li>
-                </ul>
-            </li>
-        </ul>
+                    </div>
+                    <p
+                        v-if="run.message"
+                        class="mt-2 text-sm text-slate-600"
+                    >
+                        {{ run.message }}
+                    </p>
+                    <ul
+                        v-if="run.entries && run.entries.length > 0"
+                        class="mt-3 space-y-1 text-sm text-slate-600"
+                    >
+                        <li
+                            v-for="entry in run.entries"
+                            :key="entry.id"
+                        >
+                            <span class="font-mono text-xs">{{
+                                entry.destination_table
+                            }}</span>
+                            · read {{ entry.rows_read }}, wrote
+                            {{ entry.rows_written }}, skipped
+                            {{ entry.rows_skipped }}
+                            <span
+                                v-if="entry.error"
+                                class="text-red-600"
+                            >
+                                — {{ entry.error }}
+                            </span>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <PaginationBar
+                :meta="meta"
+                @page="onPageChange"
+                @per-page="onPerPageChange"
+            />
+        </div>
     </SpaLayout>
 </template>

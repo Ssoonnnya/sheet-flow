@@ -14,18 +14,29 @@ final class ProvisionSheetSource
         private readonly DiscoverSheetStructure $discover,
     ) {}
 
-    public function provision(string $spreadsheetIdOrUrl, ?string $name = null): SheetSource
+    public function provision(string $spreadsheetIdOrUrl, ?string $name = null, ?SheetSource $existing = null): SheetSource
     {
         $discovered = $this->discover->discover($spreadsheetIdOrUrl);
 
-        return DB::transaction(function () use ($discovered, $name): SheetSource {
-            $source = SheetSource::query()->updateOrCreate(
-                ['spreadsheet_id' => $discovered->spreadsheetId],
-                [
-                    'name' => $name !== null && trim($name) !== '' ? trim($name) : $discovered->title,
+        return DB::transaction(function () use ($discovered, $name, $existing): SheetSource {
+            $resolvedName = $name !== null && trim($name) !== '' ? trim($name) : $discovered->title;
+
+            if ($existing !== null) {
+                $existing->forceFill([
+                    'spreadsheet_id' => $discovered->spreadsheetId,
+                    'name' => $resolvedName,
                     'is_active' => true,
-                ],
-            );
+                ])->save();
+                $source = $existing;
+            } else {
+                $source = SheetSource::query()->updateOrCreate(
+                    ['spreadsheet_id' => $discovered->spreadsheetId],
+                    [
+                        'name' => $resolvedName,
+                        'is_active' => true,
+                    ],
+                );
+            }
 
             foreach ($discovered->tabs as $tabData) {
                 $tab = SheetTab::query()->updateOrCreate(

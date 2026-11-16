@@ -13,7 +13,9 @@ use App\Jobs\SyncSheetsJob;
 use App\Models\ImportRun;
 use App\Models\SheetSource;
 use App\Services\Sheets\ProvisionSheetSource;
+use App\Support\Pagination;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
@@ -22,12 +24,12 @@ use Throwable;
 
 final class SheetSourceController extends Controller
 {
-    public function index(): AnonymousResourceCollection
+    public function index(Request $request): AnonymousResourceCollection
     {
         $sources = SheetSource::query()
             ->with(['tabs.mappings.columns'])
             ->orderBy('name')
-            ->get();
+            ->paginate(Pagination::perPage($request));
 
         return SheetSourceResource::collection($sources);
     }
@@ -79,9 +81,45 @@ final class SheetSourceController extends Controller
         return new SheetSourceResource($source->load(['tabs.mappings.columns']));
     }
 
-    public function update(UpdateSheetSourceRequest $request, SheetSource $source): SheetSourceResource
-    {
-        $source->update($request->validated());
+    public function update(
+        UpdateSheetSourceRequest $request,
+        SheetSource $source,
+        ProvisionSheetSource $provisioner,
+    ): SheetSourceResource {
+        $validated = $request->validated();
+        $spreadsheetId = $validated['spreadsheet_id'] ?? null;
+
+        if (is_string($spreadsheetId) && $spreadsheetId !== $source->spreadsheet_id) {
+            try {
+                $name = isset($validated['name']) && is_string($validated['name'])
+                    ? $validated['name']
+                    : null;
+
+                $source = $provisioner->provision($spreadsheetId, $name, $source);
+
+                if (array_key_exists('is_active', $validated)) {
+                    $source->forceFill([
+                        'is_active' => (bool) $validated['is_active'],
+                    ])->save();
+                }
+            } catch (SheetFetchException $exception) {
+                throw ValidationException::withMessages([
+                    'spreadsheet_id' => $exception->clientMessage(),
+                ]);
+            } catch (InvalidArgumentException $exception) {
+                throw ValidationException::withMessages([
+                    'spreadsheet_id' => $exception->getMessage(),
+                ]);
+            } catch (Throwable $exception) {
+                throw ValidationException::withMessages([
+                    'spreadsheet_id' => 'Could not read this Google Sheet. Check sharing and the Sheets API.',
+                ]);
+            }
+
+            return new SheetSourceResource($source->refresh()->load(['tabs.mappings.columns']));
+        }
+
+        $source->update($validated);
 
         return new SheetSourceResource($source->refresh()->load(['tabs.mappings.columns']));
     }
