@@ -22,7 +22,7 @@ final class SheetGridParser
             return [];
         }
 
-        $headers = $this->headers($grid[$headerIndex]);
+        $headers = $this->indexedHeaders($grid[$headerIndex]);
         $rows = [];
 
         foreach (array_slice($grid, $headerIndex + 1) as $line) {
@@ -39,10 +39,29 @@ final class SheetGridParser
     }
 
     /**
+     * @param  list<list<mixed>>  $grid
+     * @return list<string>
+     */
+    public function headerNames(array $grid, int $headerRow): array
+    {
+        if ($headerRow < 1) {
+            throw new InvalidArgumentException('Header row must be at least 1.');
+        }
+
+        $headerIndex = $headerRow - 1;
+
+        if (! array_key_exists($headerIndex, $grid)) {
+            return [];
+        }
+
+        return array_values($this->indexedHeaders($grid[$headerIndex]));
+    }
+
+    /**
      * @param  list<mixed>  $headerLine
      * @return array<int, string>
      */
-    private function headers(array $headerLine): array
+    private function indexedHeaders(array $headerLine): array
     {
         $headers = [];
         $seen = [];

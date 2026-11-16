@@ -8,6 +8,7 @@ use App\Enums\ImportRunStatus;
 use App\Models\ImportRun;
 use App\Models\ImportRunEntry;
 use App\Models\SheetSource;
+use App\Models\SheetTab;
 use App\Models\TableMapping;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -16,6 +17,7 @@ final class SyncSheets
 {
     public function __construct(
         private readonly SheetReader $reader,
+        private readonly SyncSheetConfiguration $configuration,
         private readonly EnsureDestinationSchema $schema,
         private readonly MapSheetRows $mapper,
         private readonly UpsertMappedRows $writer,
@@ -44,7 +46,7 @@ final class SyncSheets
         foreach ($sources as $source) {
             foreach ($source->tabs as $tab) {
                 foreach ($tab->mappings as $mapping) {
-                    if (! $this->importMapping($run, $source, $tab->name, $tab->header_row, $mapping)) {
+                    if (! $this->importMapping($run, $source, $tab, $mapping)) {
                         $failed = true;
                     }
                 }
@@ -63,8 +65,7 @@ final class SyncSheets
     private function importMapping(
         ImportRun $run,
         SheetSource $source,
-        string $tabName,
-        int $headerRow,
+        SheetTab $tab,
         TableMapping $mapping,
     ): bool {
         $entry = ImportRunEntry::query()->create([
@@ -80,10 +81,13 @@ final class SyncSheets
         ]);
 
         try {
+            $this->configuration->syncNewColumns($source, $tab, $mapping);
+            $mapping->load('columns');
+
             $sourceRows = $this->reader->rows(
                 $source->spreadsheet_id,
-                $tabName,
-                $headerRow,
+                $tab->name,
+                $tab->header_row,
             );
 
             $columnsAdded = $this->schema->ensure($mapping);

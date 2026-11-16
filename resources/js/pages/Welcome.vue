@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { Head, Link } from '@inertiajs/vue3';
-import { dashboard, login } from '@/routes';
-import { register } from '@/routes';
+import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
@@ -16,26 +14,26 @@ import { register } from '@/routes';
             class="mb-6 w-full max-w-[335px] text-sm not-has-[nav]:hidden lg:max-w-4xl"
         >
             <nav class="flex items-center justify-end gap-4">
-                <Link
+                <a
                     v-if="$page.props.auth.user"
-                    :href="dashboard()"
+                    href="/app/sources"
                     class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                 >
-                    Dashboard
-                </Link>
+                    Open app
+                </a>
                 <template v-else>
-                    <Link
-                        :href="login()"
+                    <a
+                        href="/app/login"
                         class="inline-block rounded-sm border border-transparent px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#19140035] dark:text-[#EDEDEC] dark:hover:border-[#3E3E3A]"
                     >
                         Log in
-                    </Link>
-                    <Link
-                        :href="register()"
+                    </a>
+                    <a
+                        href="/app/register"
                         class="inline-block rounded-sm border border-[#19140035] px-5 py-1.5 text-sm leading-normal text-[#1b1b18] hover:border-[#1915014a] dark:border-[#3E3E3A] dark:text-[#EDEDEC] dark:hover:border-[#62605b]"
                     >
                         Register
-                    </Link>
+                    </a>
                 </template>
             </nav>
         </header>

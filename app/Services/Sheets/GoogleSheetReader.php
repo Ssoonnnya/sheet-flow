@@ -7,7 +7,9 @@ use App\Exceptions\SheetFetchException;
 use Google\Client;
 use Google\Exception as GoogleException;
 use Google\Service\Sheets;
+use Google\Service\Sheets\Resource\Spreadsheets;
 use Google\Service\Sheets\Resource\SpreadsheetsValues;
+use Google\Service\Sheets\Spreadsheet;
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
 use InvalidArgumentException;
@@ -23,6 +25,43 @@ final class GoogleSheetReader implements SheetReader
         private readonly int $timeoutSeconds,
     ) {}
 
+    public function spreadsheetTitle(string $spreadsheetId): string
+    {
+        $spreadsheetId = SpreadsheetId::from($spreadsheetId);
+        $spreadsheet = $this->spreadsheet($spreadsheetId);
+        $title = $spreadsheet->getProperties()->getTitle();
+
+        return $title !== '' ? $title : $spreadsheetId;
+    }
+
+    public function tabNames(string $spreadsheetId): array
+    {
+        $spreadsheetId = SpreadsheetId::from($spreadsheetId);
+        $spreadsheet = $this->spreadsheet($spreadsheetId);
+        $sheets = $spreadsheet->getSheets();
+        $names = [];
+
+        foreach ($sheets as $sheet) {
+            $title = $sheet->getProperties()->getTitle();
+
+            if ($title !== '') {
+                $names[] = $title;
+            }
+        }
+
+        return $names;
+    }
+
+    public function headers(string $spreadsheetId, string $tabName, int $headerRow = 1): array
+    {
+        $spreadsheetId = SpreadsheetId::from($spreadsheetId);
+
+        return $this->parser->headerNames(
+            $this->fetch($spreadsheetId, $tabName),
+            $headerRow,
+        );
+    }
+
     public function rows(string $spreadsheetId, string $tabName, int $headerRow = 1): array
     {
         $spreadsheetId = SpreadsheetId::from($spreadsheetId);
@@ -33,14 +72,30 @@ final class GoogleSheetReader implements SheetReader
         );
     }
 
+    private function spreadsheet(string $spreadsheetId): Spreadsheet
+    {
+        $this->assertCredentials();
+
+        try {
+            $sheets = $this->service();
+
+            /** @var Spreadsheets $resource */
+            $resource = $sheets->spreadsheets;
+
+            return $resource->get($spreadsheetId, [
+                'fields' => 'properties.title,sheets.properties.title',
+            ]);
+        } catch (GoogleException|GuzzleException|InvalidArgumentException|LogicException $exception) {
+            throw SheetFetchException::failed($spreadsheetId, 'metadata', $exception);
+        }
+    }
+
     /**
      * @return list<list<mixed>>
      */
     private function fetch(string $spreadsheetId, string $tabName): array
     {
-        if (! is_file($this->credentialsPath) || ! is_readable($this->credentialsPath)) {
-            throw SheetFetchException::missingCredentials($this->credentialsPath);
-        }
+        $this->assertCredentials();
 
         try {
             $sheets = $this->service();
@@ -58,10 +113,17 @@ final class GoogleSheetReader implements SheetReader
                 ],
             );
         } catch (GoogleException|GuzzleException|InvalidArgumentException|LogicException $exception) {
-            throw SheetFetchException::failed($spreadsheetId, $tabName, $exception);
+            throw SheetFetchException::failed($spreadsheetId, "tab [{$tabName}]", $exception);
         }
 
         return $this->grid($response->getValues());
+    }
+
+    private function assertCredentials(): void
+    {
+        if (! is_file($this->credentialsPath) || ! is_readable($this->credentialsPath)) {
+            throw SheetFetchException::missingCredentials($this->credentialsPath);
+        }
     }
 
     /**
