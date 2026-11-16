@@ -1,0 +1,41 @@
+order_id,order_date,customer_name,customer_email,status,items_count,subtotal,tax,total,paid,shipped_at
+ORD-10001,2026-01-03,Northwind LLC,ops@northwind.example,completed,4,128.50,25.70,154.20,true,2026-01-04 09:15:00
+ORD-10002,2026-01-04,Acme Studio,hello@acme.example,completed,2,45.00,9.00,54.00,true,2026-01-05 14:02:00
+ORD-10003,2026-01-05,Bright Kids,orders@brightkids.example,shipped,6,89.40,17.88,107.28,true,2026-01-06 11:40:00
+ORD-10004,2026-01-06,City Library,supply@citylib.example,completed,12,210.00,42.00,252.00,true,2026-01-07 08:30:00
+ORD-10005,2026-01-07,Delta Foods,buyer@deltafoods.example,cancelled,3,33.75,0.00,33.75,false,
+ORD-10006,2026-01-08,Echo Media,ap@echomedia.example,completed,1,29.00,5.80,34.80,true,2026-01-09 16:20:00
+ORD-10007,2026-01-09,Forest School,admin@forestschool.example,processing,8,156.20,31.24,187.44,true,
+ORD-10008,2026-01-10,Green Cafe,manager@greencafe.example,completed,5,67.80,13.56,81.36,true,2026-01-11 10:05:00
+ORD-10009,2026-01-11,Harbor Clinic,procurement@harbor.example,shipped,7,198.10,39.62,237.72,true,2026-01-12 13:55:00
+ORD-10010,2026-01-12,Ink Press,print@inkpress.example,completed,9,142.00,28.40,170.40,true,2026-01-13 09:45:00
+ORD-10011,2026-01-13,Jade Hotel,ops@jadehotel.example,completed,3,54.60,10.92,65.52,true,2026-01-14 12:10:00
+ORD-10012,2026-01-14,Keen Labs,lab@keen.example,pending,2,41.50,8.30,49.80,false,
+ORD-10013,2026-01-15,Luna Boutique,shop@lunaboutique.example,completed,11,276.90,55.38,332.28,true,2026-01-16 15:30:00
+ORD-10014,2026-01-16,Maple Gym,office@maplegym.example,shipped,4,88.00,17.60,105.60,true,2026-01-17 08:00:00
+ORD-10015,2026-01-17,Nova Tech,buy@novatech.example,completed,15,520.00,104.00,624.00,true,2026-01-18 11:25:00
+ORD-10016,2026-01-18,Orbit Agency,finance@orbit.example,processing,6,133.40,26.68,160.08,true,
+ORD-10017,2026-01-19,Pixel School,office@pixelschool.example,completed,10,190.25,38.05,228.30,true,2026-01-20 14:50:00
+ORD-10018,2026-01-20,Quartz Bank,facilities@quartz.example,completed,20,640.00,128.00,768.00,true,2026-01-21 09:10:00
+ORD-10019,2026-01-21,River Cafe,hello@rivercafe.example,cancelled,2,24.00,0.00,24.00,false,
+ORD-10020,2026-01-22,Summit Co,orders@summit.example,shipped,5,97.75,19.55,117.30,true,2026-01-23 16:40:00
+ORD-10021,2026-01-23,Tide Logistics,warehouse@tide.example,completed,8,215.60,43.12,258.72,true,2026-01-24 10:20:00
+ORD-10022,2026-01-24,Urban Desk,team@urbandesk.example,pending,1,14.99,3.00,17.99,false,
+ORD-10023,2026-01-25,Violet Salon,owner@violetsalon.example,completed,3,48.30,9.66,57.96,true,2026-01-26 12:35:00
+ORD-10024,2026-01-26,Willow Farm,supply@willowfarm.example,shipped,7,122.80,24.56,147.36,true,2026-01-27 08:55:00
+ORD-10025,2026-01-27,Xenon Motors,parts@xenon.example,completed,13,410.00,82.00,492.00,true,2026-01-28 13:15:00
+ORD-10026,2026-01-28,Yellow Bus Co,admin@yellowbus.example,processing,4,76.40,15.28,91.68,true,
+ORD-10027,2026-01-29,Zen Clinic,orders@zenclinic.example,completed,6,134.70,26.94,161.64,true,2026-01-30 09:05:00
+ORD-10028,2026-01-30,Alpha Retail,buyer@alpharetail.example,completed,18,355.00,71.00,426.00,true,2026-01-31 15:45:00
+ORD-10029,2026-02-01,Blue Harbor,ops@blueharbor.example,shipped,5,101.20,20.24,121.44,true,2026-02-02 11:00:00
+ORD-10030,2026-02-02,Coral Books,store@coralbooks.example,pending,9,168.90,33.78,202.68,false,
+ORD-10031,2026-02-03,Dawn Bakery,office@dawnbakery.example,completed,2,36.50,7.30,43.80,true,2026-02-04 08:25:00
+ORD-10032,2026-02-04,Evergreen NGO,procure@evergreen.example,completed,14,289.00,57.80,346.80,true,2026-02-05 14:10:00
+ORD-10033,2026-02-05,Flare Design,studio@flare.example,cancelled,1,12.50,0.00,12.50,false,
+ORD-10034,2026-02-06,Globe Travel,admin@globetravel.example,processing,3,59.80,11.96,71.76,true,
+ORD-10035,2026-02-07,Honey Market,orders@honeymarket.example,shipped,8,147.60,29.52,177.12,true,2026-02-08 10:50:00
+ORD-10036,2026-02-08,Iron Works,buyer@ironworks.example,completed,11,305.40,61.08,366.48,true,2026-02-09 12:40:00
+ORD-10037,2026-02-09,Jasper School,office@jasperschool.example,completed,16,278.00,55.60,333.60,true,2026-02-10 09:30:00
+ORD-10038,2026-02-10,Kite Club,hello@kiteclub.example,pending,2,27.40,5.48,32.88,false,
+ORD-10039,2026-02-11,Lotus Spa,manager@lotusspa.example,shipped,4,84.20,16.84,101.04,true,2026-02-12 16:05:00
+ORD-10040,2026-02-12,Meteor Labs,lab@meteor.example,completed,7,196.75,39.35,236.10,true,2026-02-13 11:20:00

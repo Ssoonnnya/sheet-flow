@@ -1,0 +1,41 @@
+sku,product_name,category,quantity,unit_cost,reorder_level,warehouse,is_active,updated_at
+SKU-1001,Pencil HB,Stationery,420,0.40,100,WH-A,true,2026-02-01
+SKU-1002,Notebook A5,Stationery,180,1.10,50,WH-A,true,2026-02-01
+SKU-1003,Eraser white,Stationery,600,0.20,150,WH-B,true,2026-02-02
+SKU-1004,Marker black,Stationery,95,0.90,80,WH-A,true,2026-02-02
+SKU-1005,Stapler metal,Office,40,3.50,25,WH-C,true,2026-02-03
+SKU-1006,Highlighter yellow,Stationery,210,0.55,60,WH-B,true,2026-02-03
+SKU-1007,Folder blue,Office,130,0.85,40,WH-A,true,2026-02-04
+SKU-1008,Paper A4 500,Office,75,2.40,30,WH-C,true,2026-02-04
+SKU-1009,Glue stick,Stationery,250,0.35,70,WH-B,true,2026-02-05
+SKU-1010,Scissors 8in,Office,88,1.75,35,WH-A,true,2026-02-05
+SKU-1011,Ruler 30cm,Stationery,300,0.25,80,WH-B,true,2026-02-06
+SKU-1012,Packing tape,Warehouse,55,1.20,40,WH-C,true,2026-02-06
+SKU-1013,Binder 2in,Office,64,2.10,30,WH-A,true,2026-02-07
+SKU-1014,Pen blue,Stationery,500,0.30,120,WH-B,true,2026-02-07
+SKU-1015,Pen black,Stationery,480,0.30,120,WH-B,true,2026-02-08
+SKU-1016,Whiteboard marker,Office,110,1.05,40,WH-A,true,2026-02-08
+SKU-1017,Clipboard,Office,45,2.60,20,WH-C,true,2026-02-09
+SKU-1018,Sticky notes,Stationery,320,0.70,90,WH-A,true,2026-02-09
+SKU-1019,Calculator basic,Electronics,28,6.50,15,WH-C,true,2026-02-10
+SKU-1020,Desk organizer,Office,36,4.80,15,WH-A,true,2026-02-10
+SKU-1021,Envelope C5,Office,200,0.15,80,WH-B,true,2026-02-11
+SKU-1022,Correction tape,Stationery,140,0.95,50,WH-A,true,2026-02-11
+SKU-1023,Push pins,Stationery,90,0.60,40,WH-B,false,2026-02-12
+SKU-1024,Index cards,Stationery,160,0.80,50,WH-A,true,2026-02-12
+SKU-1025,Laptop stand,Electronics,18,12.00,10,WH-C,true,2026-02-13
+SKU-1026,USB-C cable,Electronics,70,2.20,25,WH-C,true,2026-02-13
+SKU-1027,Mouse pad,Electronics,95,1.80,30,WH-A,true,2026-02-14
+SKU-1028,Keyboard cover,Electronics,22,3.40,12,WH-C,true,2026-02-14
+SKU-1029,Monitor wipe kit,Electronics,48,1.50,20,WH-B,true,2026-02-15
+SKU-1030,Label maker tape,Office,33,3.90,15,WH-A,true,2026-02-15
+SKU-1031,Safety gloves,Warehouse,120,1.10,40,WH-C,true,2026-02-16
+SKU-1032,Carton box M,Warehouse,85,0.90,50,WH-C,true,2026-02-16
+SKU-1033,Bubble wrap roll,Warehouse,26,4.20,10,WH-C,true,2026-02-17
+SKU-1034,Shipping label roll,Warehouse,44,2.75,20,WH-C,true,2026-02-17
+SKU-1035,Toner black,Electronics,12,28.00,8,WH-A,true,2026-02-18
+SKU-1036,Ink cyan,Electronics,9,18.50,5,WH-A,false,2026-02-18
+SKU-1037,HDMI cable,Electronics,61,3.10,20,WH-B,true,2026-02-19
+SKU-1038,Webcam HD,Electronics,15,22.00,8,WH-B,true,2026-02-19
+SKU-1039,Headset USB,Electronics,27,14.00,10,WH-B,true,2026-02-20
+SKU-1040,Power strip,Electronics,39,7.80,15,WH-A,true,2026-02-20

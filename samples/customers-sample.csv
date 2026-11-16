@@ -1,0 +1,36 @@
+customer_code,company_name,contact_name,email,phone,city,country,segment,signup_date,lifetime_value,is_active
+C-001,Northwind LLC,Olena Marchuk,ops@northwind.example,+380441000001,Kyiv,UA,enterprise,2024-01-12,15420.50,true
+C-002,Acme Studio,James Cole,hello@acme.example,+12025550102,Austin,US,smb,2024-02-03,2450.00,true
+C-003,Bright Kids,Sofia Berg,orders@brightkids.example,+46701234567,Stockholm,SE,education,2024-02-18,3890.75,true
+C-004,City Library,Ivan Petrenko,supply@citylib.example,+380322000004,Lviv,UA,public,2023-11-05,9120.00,true
+C-005,Delta Foods,Maria Lopez,buyer@deltafoods.example,+34911222333,Madrid,ES,enterprise,2023-09-21,18750.20,true
+C-006,Echo Media,Tom Hughes,ap@echomedia.example,+442071234567,London,GB,smb,2024-03-09,1680.40,true
+C-007,Forest School,Nadiya Klym,admin@forestschool.example,+380441000007,Kyiv,UA,education,2024-04-01,5340.00,true
+C-008,Green Cafe,Piotr Nowak,manager@greencafe.example,+48221234567,Warsaw,PL,smb,2024-04-15,2210.90,true
+C-009,Harbor Clinic,Dr. Amina Yusuf,procurement@harbor.example,+971501234567,Dubai,AE,healthcare,2023-12-11,12440.00,true
+C-010,Ink Press,Lars Nielsen,print@inkpress.example,+4533123456,Copenhagen,DK,smb,2024-05-02,3075.55,true
+C-011,Jade Hotel,Mei Lin,ops@jadehotel.example,+85221234567,Hong Kong,HK,enterprise,2023-08-19,22100.00,true
+C-012,Keen Labs,Andriy Bondar,lab@keen.example,+380441000012,Kharkiv,UA,startup,2024-06-10,980.00,true
+C-013,Luna Boutique,Clara Rossi,shop@lunaboutique.example,+390612345678,Rome,IT,smb,2024-06-22,4560.30,true
+C-014,Maple Gym,Erik Johansson,office@maplegym.example,+4681234567,Gothenburg,SE,smb,2024-07-01,1890.00,true
+C-015,Nova Tech,Priya Shah,buy@novatech.example,+14155550115,San Francisco,US,enterprise,2023-07-14,38990.00,true
+C-016,Orbit Agency,Hugo Martin,finance@orbit.example,+33142345678,Paris,FR,agency,2024-07-18,6750.80,true
+C-017,Pixel School,Kateryna Sydor,office@pixelschool.example,+380482000017,Odesa,UA,education,2024-08-05,4120.00,true
+C-018,Quartz Bank,Helen Grant,facilities@quartz.example,+41441234567,Zurich,CH,enterprise,2023-05-30,51200.00,true
+C-019,River Cafe,Bohdan Lysenko,hello@rivercafe.example,+380441000019,Kyiv,UA,smb,2024-08-20,1340.25,false
+C-020,Summit Co,Nora White,orders@summit.example,+12025550120,Denver,US,smb,2024-09-02,2980.00,true
+C-021,Tide Logistics,Serhiy Holub,warehouse@tide.example,+380572000021,Kharkiv,UA,enterprise,2023-10-08,16780.40,true
+C-022,Urban Desk,Mia Keller,team@urbandesk.example,+4930123456,Berlin,DE,startup,2024-09-14,760.50,true
+C-023,Violet Salon,Inna Rudenko,owner@violetsalon.example,+380322000023,Lviv,UA,smb,2024-09-28,1125.00,true
+C-024,Willow Farm,George Adams,supply@willowfarm.example,+35311234567,Cork,IE,smb,2024-10-05,2040.70,true
+C-025,Xenon Motors,Takeshi Mori,parts@xenon.example,+81312345678,Tokyo,JP,enterprise,2023-06-17,27450.00,true
+C-026,Yellow Bus Co,Marta Kovacs,admin@yellowbus.example,+3611234567,Budapest,HU,public,2024-10-19,5310.00,true
+C-027,Zen Clinic,Dr. Lea Cohen,orders@zenclinic.example,+97231234567,Tel Aviv,IL,healthcare,2024-11-01,8890.60,true
+C-028,Alpha Retail,Chen Wei,buyer@alpharetail.example,+861012345678,Shanghai,CN,enterprise,2023-04-22,33120.00,true
+C-029,Blue Harbor,Oksana Vovk,ops@blueharbor.example,+380482000029,Odesa,UA,smb,2024-11-12,1760.00,true
+C-030,Coral Books,Emily Stone,store@coralbooks.example,+12025550130,Seattle,US,smb,2024-11-25,2540.35,true
+C-031,Dawn Bakery,Yulia Melnyk,office@dawnbakery.example,+380441000031,Kyiv,UA,smb,2024-12-03,980.00,true
+C-032,Evergreen NGO,Paul Rivera,procure@evergreen.example,+12025550132,Boston,US,nonprofit,2024-12-15,6420.00,true
+C-033,Flare Design,Nina Vogel,studio@flare.example,+4311234567,Vienna,AT,agency,2025-01-08,1490.80,false
+C-034,Globe Travel,Ravi Patel,admin@globetravel.example,+442071234534,Manchester,GB,smb,2025-01-20,3670.00,true
+C-035,Honey Market,Ihor Savchuk,orders@honeymarket.example,+380322000035,Lviv,UA,smb,2025-02-01,2110.45,true

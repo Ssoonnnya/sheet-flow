@@ -1,0 +1,26 @@
+event_id,event_name,venue,city,starts_at,ends_at,capacity,tickets_sold,ticket_price,is_online,is_published
+EV-001,Product Launch Night,Arena Hall,Kyiv,2026-03-01 18:00:00,2026-03-01 21:30:00,300,248,25.00,false,true
+EV-002,Spreadsheet Automation Workshop,Cowork Hub,Lviv,2026-03-05 10:00:00,2026-03-05 13:00:00,40,37,49.00,false,true
+EV-003,Remote QA Meetup,Zoom Room A,Remote,2026-03-07 16:00:00,2026-03-07 17:30:00,200,163,0.00,true,true
+EV-004,Finance Ops Roundtable,Business Center,Odesa,2026-03-10 14:00:00,2026-03-10 16:00:00,60,41,35.00,false,true
+EV-005,Data Sync Bootcamp,Tech Park,Kharkiv,2026-03-12 09:30:00,2026-03-12 17:00:00,80,72,79.00,false,true
+EV-006,Customer Success AMA,Meet Studio,Kyiv,2026-03-14 11:00:00,2026-03-14 12:00:00,100,88,0.00,true,true
+EV-007,Inventory Deep Dive,Warehouse Loft,Kyiv,2026-03-18 13:00:00,2026-03-18 16:30:00,50,29,55.00,false,true
+EV-008,Hiring Fair Spring,Expo Center,Lviv,2026-03-20 10:00:00,2026-03-20 18:00:00,500,412,0.00,false,true
+EV-009,API Integrations Lab,Dev Space,Remote,2026-03-22 15:00:00,2026-03-22 18:00:00,120,101,39.00,true,true
+EV-010,Retail Analytics Night,City Gallery,Odesa,2026-03-25 18:30:00,2026-03-25 21:00:00,150,96,20.00,false,true
+EV-011,Support Excellence Day,Call Center HQ,Kyiv,2026-03-27 09:00:00,2026-03-27 17:00:00,70,54,45.00,false,true
+EV-012,Founders Breakfast,Cafe Horizon,Lviv,2026-03-29 08:30:00,2026-03-29 10:30:00,35,35,15.00,false,true
+EV-013,Cloud Cost Clinic,Online Stage,Remote,2026-04-01 17:00:00,2026-04-01 18:30:00,250,187,0.00,true,true
+EV-014,Sheet Mapping Masterclass,Training Room 2,Kyiv,2026-04-03 10:00:00,2026-04-03 14:00:00,45,40,69.00,false,true
+EV-015,Security Awareness Hour,Auditorium B,Kharkiv,2026-04-05 12:00:00,2026-04-05 13:00:00,180,132,0.00,false,true
+EV-016,Partner Summit,Grand Ballroom,Kyiv,2026-04-08 09:00:00,2026-04-08 18:00:00,400,356,120.00,false,true
+EV-017,Design Critique Club,Studio Nine,Odesa,2026-04-10 16:00:00,2026-04-10 18:00:00,25,19,10.00,false,true
+EV-018,Ops War Room Simulation,Ops Floor,Remote,2026-04-12 13:00:00,2026-04-12 16:00:00,90,67,29.00,true,true
+EV-019,Community Hack Night,Maker Lab,Lviv,2026-04-15 18:00:00,2026-04-16 00:00:00,80,74,0.00,false,true
+EV-020,Quarterly All Hands,Main Stage,Kyiv,2026-04-18 11:00:00,2026-04-18 13:00:00,600,0,0.00,true,false
+EV-021,CSV Import Clinic,Support Desk,Remote,2026-04-20 15:00:00,2026-04-20 16:00:00,150,121,0.00,true,true
+EV-022,Warehouse Tour Day,WH-C,Kyiv,2026-04-22 10:00:00,2026-04-22 12:30:00,30,28,0.00,false,true
+EV-023,Sales Pipeline Review,Conference 4,Kyiv,2026-04-24 09:00:00,2026-04-24 11:00:00,40,33,0.00,false,true
+EV-024,International Demo Day,Online Arena,Remote,2026-04-26 16:00:00,2026-04-26 19:00:00,1000,742,0.00,true,true
+EV-025,Onboarding Sprint,HR Room,Lviv,2026-04-28 09:30:00,2026-04-30 17:00:00,20,18,0.00,false,true

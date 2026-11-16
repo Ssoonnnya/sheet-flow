@@ -1,6 +1,41 @@
-date,product_name,price,amount
-2026-01-02,Pencil,1.50,2
-2026-01-03,Notebook,3.00,4
-2026-01-03,Eraser,0.75,10
-2026-01-04,Marker,2.25,6
-2026-01-05,Stapler,8.99,1
+date,product_name,price,amount,region,salesperson
+2026-01-02,Pencil,1.50,2,East,Anna
+2026-01-03,Notebook,3.00,4,West,Ben
+2026-01-03,Eraser,0.75,10,East,Anna
+2026-01-04,Marker,2.25,6,North,Chris
+2026-01-05,Stapler,8.99,1,South,Dana
+2026-01-06,Highlighter,1.80,12,East,Anna
+2026-01-07,Folder,2.50,8,West,Ben
+2026-01-08,Paper pack,6.40,3,North,Chris
+2026-01-09,Glue stick,1.20,15,South,Dana
+2026-01-10,Scissors,4.75,5,East,Anna
+2026-01-11,Ruler,1.10,9,West,Ben
+2026-01-12,Tape,2.90,7,North,Chris
+2026-01-13,Binder,5.50,4,South,Dana
+2026-01-14,Pen blue,1.25,20,East,Anna
+2026-01-15,Pen black,1.25,18,West,Ben
+2026-01-16,Whiteboard marker,3.40,6,North,Chris
+2026-01-17,Clipboard,7.20,2,South,Dana
+2026-01-18,Sticky notes,2.10,11,East,Anna
+2026-01-19,Calculator,14.99,1,West,Ben
+2026-01-20,Desk organizer,12.50,3,North,Chris
+2026-01-21,Envelope pack,3.80,5,South,Dana
+2026-01-22,Correction tape,2.60,8,East,Anna
+2026-01-23,Push pins,1.90,14,West,Ben
+2026-01-24,Index cards,2.40,9,North,Chris
+2026-01-25,Laptop stand,29.00,1,South,Dana
+2026-01-26,USB cable,6.50,4,East,Anna
+2026-01-27,Mouse pad,5.00,6,West,Ben
+2026-01-28,Keyboard cover,8.25,2,North,Chris
+2026-01-29,Monitor wipe kit,4.10,7,South,Dana
+2026-01-30,Label maker tape,9.75,3,East,Anna
+2026-02-01,Pencil,1.50,5,West,Ben
+2026-02-02,Notebook,3.00,6,North,Chris
+2026-02-03,Marker,2.25,10,South,Dana
+2026-02-04,Stapler,8.99,2,East,Anna
+2026-02-05,Folder,2.50,12,West,Ben
+2026-02-06,Paper pack,6.40,4,North,Chris
+2026-02-07,Highlighter,1.80,9,South,Dana
+2026-02-08,Scissors,4.75,3,East,Anna
+2026-02-09,Binder,5.50,5,West,Ben
+2026-02-10,Sticky notes,2.10,16,North,Chris

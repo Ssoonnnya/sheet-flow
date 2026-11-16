@@ -1,0 +1,31 @@
+employee_id,full_name,email,department,title,hire_date,salary,is_active,city
+E-001,Anna Koval,anna.koval@example.com,Sales,Account Manager,2022-03-14,42000,true,Kyiv
+E-002,Ben Miller,ben.miller@example.com,Sales,Account Manager,2021-11-02,45000,true,Lviv
+E-003,Chris Ortega,chris.ortega@example.com,Sales,Team Lead,2020-06-18,58000,true,Kyiv
+E-004,Dana Petrova,dana.petrova@example.com,Sales,Account Manager,2023-01-09,41000,true,Odesa
+E-005,Elena Bondar,elena.bondar@example.com,Operations,Warehouse Lead,2019-09-01,47000,true,Kharkiv
+E-006,Farid Hassan,farid.hassan@example.com,Operations,Logistics Specialist,2022-08-22,39000,true,Kyiv
+E-007,Greta Holm,greta.holm@example.com,Finance,Accountant,2020-02-11,51000,true,Lviv
+E-008,Hiro Tanaka,hiro.tanaka@example.com,Engineering,Backend Developer,2021-04-05,72000,true,Kyiv
+E-009,Iryna Shevchenko,iryna.shevchenko@example.com,Engineering,Frontend Developer,2022-12-01,68000,true,Kyiv
+E-010,Jonas Berg,jonas.berg@example.com,Engineering,QA Engineer,2023-05-16,56000,true,Remote
+E-011,Katya Moroz,katya.moroz@example.com,Support,Support Agent,2024-01-20,36000,true,Odesa
+E-012,Leo Santos,leo.santos@example.com,Support,Support Agent,2023-09-12,35500,true,Lviv
+E-013,Maya Chen,maya.chen@example.com,Product,Product Manager,2021-07-30,79000,true,Kyiv
+E-014,Nazar Hrytsenko,nazar.hrytsenko@example.com,Engineering,DevOps Engineer,2020-10-19,76000,true,Remote
+E-015,Olga Ivanova,olga.ivanova@example.com,HR,HR Generalist,2018-05-07,48000,true,Kyiv
+E-016,Pavel Dubois,pavel.dubois@example.com,Marketing,Content Lead,2022-02-28,52000,true,Lviv
+E-017,Quinn Adler,quinn.adler@example.com,Marketing,Growth Manager,2023-03-03,54000,true,Remote
+E-018,Rita Novak,rita.novak@example.com,Finance,Controller,2017-12-15,82000,true,Kyiv
+E-019,Samir Ali,samir.ali@example.com,Operations,Buyer,2021-01-25,43000,true,Kharkiv
+E-020,Tina Rossi,tina.rossi@example.com,Sales,SDR,2024-06-01,34000,true,Odesa
+E-021,Ulya Kravets,ulya.kravets@example.com,Engineering,Data Analyst,2022-09-14,61000,true,Kyiv
+E-022,Viktor Hahn,viktor.hahn@example.com,Support,Support Lead,2019-04-08,50000,true,Lviv
+E-023,Wendy Brooks,wendy.brooks@example.com,Product,Designer,2023-08-21,59000,true,Remote
+E-024,Xander Lee,xander.lee@example.com,Engineering,Mobile Developer,2024-02-12,70000,true,Kyiv
+E-025,Yana Semenova,yana.semenova@example.com,HR,Recruiter,2021-06-17,44000,false,Kyiv
+E-026,Zoltan Nagy,zoltan.nagy@example.com,Sales,Account Manager,2020-08-03,46000,true,Budapest
+E-027,Alex Park,alex.park@example.com,Engineering,Staff Engineer,2018-11-26,95000,true,Remote
+E-028,Borys Melnyk,borys.melnyk@example.com,Operations,Dispatcher,2023-10-09,37000,true,Kharkiv
+E-029,Carmen Diaz,carmen.diaz@example.com,Finance,Payroll Specialist,2022-05-23,49000,true,Lviv
+E-030,Dmytro Sydor,dmytro.sydor@example.com,Engineering,Intern,2025-09-01,18000,true,Kyiv
